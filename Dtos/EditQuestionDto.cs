@@ -1,6 +1,6 @@
 ﻿namespace VRBackend.Dtos
 {
-    public class CreateQuestionDto
+    public class EditQuestionDto
     {
         public string Text { get; set; } = null!;
         public string Subject { get; set; } = null!;

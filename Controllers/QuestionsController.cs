@@ -56,16 +56,38 @@ public class QuestionsController : ControllerBase
 
     // PUT: api/Questions/{id}
     [HttpPut("{id:length(24)}")]
-    public IActionResult Update(string id, Question questionIn)
+    public IActionResult Update(string id, EditQuestionDto dto)
     {
         var question = _questionService.Get(id);
         if (question == null)
         {
             return NotFound();
         }
-        _questionService.Update(id, questionIn);
+
+        if (!string.IsNullOrWhiteSpace(dto.Text))
+        {
+            question.Text = dto.Text;
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.Subject))
+        {
+            question.Subject = dto.Subject;
+        }
+
+
+        if (dto.Options != null && dto.Options.Any())
+        {
+            question.Options = dto.Options.Select(o => new Option
+            {
+                Text = o.Text,
+                IsCorrect = o.IsCorrect
+            }).ToList();
+        }
+
+        _questionService.Update(id, question);
         return NoContent();
     }
+
 
     // DELETE: api/Questions/{id}
     [HttpDelete("{id:length(24)}")]
