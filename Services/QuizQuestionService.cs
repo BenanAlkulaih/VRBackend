@@ -14,26 +14,26 @@ public class QuestionService
         _questions = database.GetCollection<Question>(settings.QuestionsCollectionName);
     }
 
-    // Retrieve all questions.
+    // Get ALL
     public List<Question> Get() =>
         _questions.Find(question => true).ToList();
 
-    // Retrieve a single question by its ID.
+    // Get question by ID
     public Question Get(string id) =>
         _questions.Find(question => question.Id == id).FirstOrDefault();
 
-    // Create a new question.
+    // Create
     public Question Create(Question question)
     {
         _questions.InsertOne(question);
         return question;
     }
 
-    // Update an existing question.
+    // Update 
     public void Update(string id, Question questionIn) =>
         _questions.ReplaceOne(question => question.Id == id, questionIn);
 
-    // Delete a question.
+    // Delete 
     public void Remove(string id) =>
         _questions.DeleteOne(question => question.Id == id);
 }
