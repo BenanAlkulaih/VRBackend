@@ -21,7 +21,7 @@ builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure CORS to allow requests from your React app.
+// Configure CORS to allow requests from React app.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
